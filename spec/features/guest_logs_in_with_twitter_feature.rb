@@ -13,6 +13,11 @@ require 'capybara/rspec'
 # https://github.com/jnicklas/capybara#setup
 Capybara.app = Sinatra::Application
 
+# Turn on test mode fo omniauth so it doesn't actually hit twitter
+OmniAuth.config.test_mode = true
+# https://github.com/intridea/omniauth/wiki/Integration-Testing
+
+
 # If we want to use rspec without rails, we need to specify the
 # type: :feature option for the rspec describe block
 describe "Guest logs in with twitter", type: :feature do
