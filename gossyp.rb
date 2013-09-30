@@ -25,16 +25,37 @@ use OmniAuth::Builder do
   # https://github.com/arunagw/omniauth-twitter#before-you-begin
 end
 
+# rack-flash let's me store data in a hash across requests; as well as cleans
+# out the data when it's read. This makes it easy to show a message once and
+# only once
+require 'rack-flash'
+use Rack::Flash
+# https://github.com/nakajima/rack-flash#sinatra
+
 get '/' do
   # When you return a string from a sinatra route definition, it will render it
   # as HTML.
-  "<a href='/auth/twitter'>Login with Twitter!</a>"
+
+  erb :home
 end
 
 get '/auth/twitter/callback' do
+  flash[:notice] = "Welcome #{auth_hash[:info][:name]}"
+
   # This is shorthand for sending an HTTP Header of 'Location: http://yourhost.com/' and a response
   # code of 302
 
   redirect '/'
   # http://en.wikipedia.org/wiki/HTTP_302
+end
+
+# Sinatra helpers create methods that are available to routes *and* views in
+# sinatra
+helpers do
+
+  # I am lazy and don't like typing env['omniauth.auth'] all the time.
+  # So I made an auth_hash helper
+  def auth_hash
+    env['omniauth.auth']
+  end
 end

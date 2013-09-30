@@ -5,6 +5,10 @@ gem 'sinatra'
 gem 'omniauth'
 gem 'omniauth-twitter'
 
+# I chose rack-flash over sinatra-flash because sinatra-flash hadn't had a
+# commit in years.
+gem 'rack-flash3'
+
 # By grouping our testing gems in development and test we prevent them from
 # being installed on Heroku.
 #
