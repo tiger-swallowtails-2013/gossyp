@@ -7,6 +7,9 @@ require 'dotenv'
 Dotenv.load('.env.development')
 # https://github.com/bkeepers/dotenv#sinatra-or-plain-ol-ruby
 
+require 'sinatra/activerecord'
+set :database, ENV['DATABASE_URL']
+
 
 
 require 'omniauth'
