@@ -26,6 +26,7 @@ end
 
 get '/auth/twitter/callback' do
   flash[:notice] = "Welcome #{auth_hash[:info][:name]}"
+  User.from_auth_hash(auth_hash)
 
   # This is shorthand for sending an HTTP Header of 'Location: http://yourhost.com/' and a response
   # code of 302
