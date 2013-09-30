@@ -7,8 +7,16 @@ describe User do
           uid: 12345
         })
         expect(User.find_by(twitter_uid: 12345)).not_to be_nil
-
-
+      end
+    end
+    context "when the user does exist" do
+      it "does not create a new user" do
+        User.create(twitter_uid: 45677)
+        expect {
+          User.from_auth_hash({
+            uid: 45677
+          })
+        }.not_to change { User.count }
       end
     end
   end
