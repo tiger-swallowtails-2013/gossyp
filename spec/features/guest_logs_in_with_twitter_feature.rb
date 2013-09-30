@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 # If we want to use capybara without rails, we need to specify the
 # type: :feature option for the rspec describe block
 describe "Guest logs in with twitter", type: :feature do
@@ -59,10 +60,7 @@ describe "Guest logs in with twitter", type: :feature do
       expect {
         login_with_twitter
       }.to change { User.count }.by(1)
-      expect(User.find_by(twitter_uid: 12345)).not_to be_nil
+      expect(User.find_by(twitter_uid: twitter_uid)).not_to be_nil
     end
-  end
-  context "when they have logged in before" do
-    it "does not create a new user"
   end
 end

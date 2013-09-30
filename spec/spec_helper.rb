@@ -19,3 +19,10 @@ OmniAuth.config.test_mode = true
 
 # Stop logging ActiveRecord to the console
 ActiveRecord::Base.logger = Logger.new('/dev/null')
+
+
+RSpec.configure do |config|
+  config.before do
+    User.destroy_all
+  end
+end
