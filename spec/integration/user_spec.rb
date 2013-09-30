@@ -1,11 +1,23 @@
 require 'spec_helper'
 describe User do
   describe ".from_auth_hash" do
+
     it "returns a user with a twitter_uid which matches the passed in uid" do
       user = User.from_auth_hash({
         uid: 12345
       })
       expect(user.twitter_uid).to eql(12345)
+    end
+
+    it "sets the users full_name to the auth hashes[:info][:name]" do
+      user = User.from_auth_hash({
+        uid: 12345,
+        info: {
+          name: "James Dean"
+        }
+      })
+      expect(user.full_name).to eql("James Dean")
+
     end
 
     context "when the user does not yet exist" do

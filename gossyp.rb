@@ -38,8 +38,9 @@ use Rack::Flash
 
 class User < ActiveRecord::Base
   def self.from_auth_hash(auth_hash)
-    User.find_or_create_by(twitter_uid: auth_hash[:uid])
-
+    user = User.find_or_create_by(twitter_uid: auth_hash[:uid])
+    user.update_attributes(full_name: auth_hash.fetch(:info, {}).fetch(:name, ""))
+    user
   end
 end
 
