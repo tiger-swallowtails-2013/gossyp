@@ -36,6 +36,9 @@ require 'rack-flash'
 use Rack::Flash
 # https://github.com/nakajima/rack-flash#sinatra
 
+class User < ActiveRecord::Base
+end
+
 get '/' do
   # When you return a string from a sinatra route definition, it will render it
   # as HTML.
