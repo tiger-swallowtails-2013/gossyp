@@ -37,6 +37,10 @@ use Rack::Flash
 # https://github.com/nakajima/rack-flash#sinatra
 
 class User < ActiveRecord::Base
+  def self.from_auth_hash(auth_hash)
+    User.create(twitter_uid: auth_hash[:uid])
+
+  end
 end
 
 get '/' do
