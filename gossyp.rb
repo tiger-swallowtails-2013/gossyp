@@ -13,7 +13,7 @@ require 'initializers/rack_flash'
 class User < ActiveRecord::Base
   def self.from_auth_hash(auth_hash)
     user = User.find_or_create_by(twitter_uid: auth_hash[:uid])
-    user.update_attributes(full_name: auth_hash.fetch(:info, {}).fetch(:name, ""))
+    user.update_attributes(full_name: auth_hash[:info][:name])
     user
   end
 end
