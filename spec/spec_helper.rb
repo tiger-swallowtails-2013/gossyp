@@ -16,3 +16,6 @@ Capybara.app = Sinatra::Application
 # Turn on test mode fo omniauth so it doesn't actually hit twitter
 OmniAuth.config.test_mode = true
 # https://github.com/intridea/omniauth/wiki/Integration-Testing
+
+# Stop logging ActiveRecord to the console
+ActiveRecord::Base.logger = Logger.new('/dev/null')

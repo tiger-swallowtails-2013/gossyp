@@ -17,7 +17,6 @@ describe User do
         }
       })
       expect(user.full_name).to eql("James Dean")
-
     end
 
     context "when the user does not yet exist" do

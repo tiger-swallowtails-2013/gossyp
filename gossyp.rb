@@ -1,40 +1,13 @@
 require 'sinatra'
-
-# dotenv allows us to store configuration variables in a .env file
-# This makes it easy to keep our secret configuration variables
-# outside of our public repo. HOORAY!
-require 'dotenv'
-Dotenv.load('.env.development')
-# https://github.com/bkeepers/dotenv#sinatra-or-plain-ol-ruby
-
-require 'sinatra/activerecord'
-set :database, ENV['DATABASE_URL']
-
-
-
-require 'omniauth'
-require 'omniauth-twitter'
-
 # Omniauth requires cookies so it can store data across page requests
 enable :sessions
 # http://www.sinatrarb.com/faq.html#sessions
 
-# Omniauth::Builder is Rack Middleware that standardizes how oauth responses
-# are formatted for your oauth callback, as well as makes it
-# easy to create links to oauth providers
-use OmniAuth::Builder do
-  # We are going to use twitter for logins, BECAUSE YAY TWITTER
-  # You'll need to register an app at https://dev.twitter.com/
-  provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
-  # https://github.com/arunagw/omniauth-twitter#before-you-begin
-end
+require 'initializers/dotenv'
+require 'initializers/activerecord'
+require 'initializers/omniauth'
+require 'initializers/rack_flash'
 
-# rack-flash let's me store data in a hash across requests; as well as cleans
-# out the data when it's read. This makes it easy to show a message once and
-# only once
-require 'rack-flash'
-use Rack::Flash
-# https://github.com/nakajima/rack-flash#sinatra
 
 class User < ActiveRecord::Base
   def self.from_auth_hash(auth_hash)
