@@ -74,7 +74,12 @@ describe "Guest logs in with twitter", type: :feature do
   end
 
   context "when they have not logged in before" do
-    it "creates a new user"
+    it "creates a new user with their uid" do
+      expect {
+        login_with_twitter
+      }.to change { User.count }.by(1)
+      expect(User.find_by(twitter_uid: 12345)).not_to be_nil
+    end
   end
   context "when they have logged in before" do
     it "does not create a new user"
