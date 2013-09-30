@@ -23,40 +23,53 @@ OmniAuth.config.test_mode = true
 describe "Guest logs in with twitter", type: :feature do
 # https://github.com/jnicklas/capybara#using-capybara-with-rspec
 
-  it "redirects them to the home page" do
-    visit '/'
-    click_on 'Login with Twitter!'
-    expect(current_url).to eq "http://www.example.com/"
-
-    # This test is kind of a lame one,
-    # But it's enough to get me started making the app work.
-  end
-
-  it "displays a welcome! message" do
-    # In order to test twitter without hitting twitter, we want to simulate how
-    # twitter responds to omniauth.  We do this by leveraging omniauth's mock
-    # toolset to provide fake twitter responses. This is reasonable because we
-    # can trust that the omniauth and omniauth twitter gems will do their job.
-
-
+  let(:twitter_user_info) {
     # This is our fake user data
-    twitter_user_info = {
+    {
       name: "Zee Spencer",
       nickname: "zspencer",
     }
+  }
 
-    # We want to provide a reasonable response from twitter that we can use for testing.
-    # It should match what omniauth-twitter declares is the twitter authentication hash
+  let(:twitter_uid) {
+    # the uid is the identifier that twitter uses in house to keep track of who
+    # people are.
 
-    # the uid is the identifier that twitter uses in house to keep track of who people are.
-    OmniAuth.config.add_mock(:twitter, {:uid => '12345', :info => twitter_user_info })
+    12345
+  }
+
+  def login_with_twitter
+    visit '/'
+    click_on 'Login with Twitter!'
+  end
+
+  before do
+    # In order to test twitter without hitting the real twitter, we want to
+    # simulate how twitter responds to omniauth.  We do this by leveraging
+    # omniauth's mock toolset to provide fake twitter responses. This is
+    # reasonable because we can trust that the omniauth and omniauth twitter
+    # gems will do their job.
+
+
+    # We want to provide a reasonable response from twitter that we can use for
+    # testing.  It should match what omniauth-twitter declares is the twitter
+    # authentication hash. I recommend the following fields: uid, and info
+
+    OmniAuth.config.add_mock(:twitter, {:uid => twitter_uid, :info => twitter_user_info })
 
     # https://github.com/intridea/omniauth/wiki/Integration-Testing#omniauthconfigmock_auth
     # https://github.com/arunagw/omniauth-twitter#authentication-hash
 
-    visit '/'
-    click_on 'Login with Twitter!'
 
+  end
+
+  it "redirects them to the home page" do
+    login_with_twitter
+    expect(current_url).to eq "http://www.example.com/"
+  end
+
+  it "displays a welcome! message" do
+    login_with_twitter
     expect(page).to have_content("Welcome #{twitter_user_info["name"]}")
   end
 
