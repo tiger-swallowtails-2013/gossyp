@@ -13,7 +13,8 @@ require 'omniauth'
 require 'omniauth-twitter'
 
 # Omniauth requires cookies so it can store data across page requests
-use Rack::Session::Cookie
+enable :sessions
+# http://www.sinatrarb.com/faq.html#sessions
 
 # Omniauth::Builder is Rack Middleware that standardizes how oauth responses
 # are formatted for your oauth callback, as well as makes it
