@@ -33,6 +33,11 @@ get '/auth/twitter/callback' do
   # http://en.wikipedia.org/wiki/HTTP_302
 end
 
+get '/gossyps/new' do
+  redirect '/'
+end
+
+
 # Sinatra helpers create methods that are available to routes *and* views in
 # sinatra
 helpers do
