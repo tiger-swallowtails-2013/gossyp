@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.expand_path('.'))
 # Default the RACK_ENV to development unless it's explicitely specified
 ENV['RACK_ENV'] ||= 'development'
 require 'sinatra'
+
 # Omniauth requires cookies so it can store data across page requests
 enable :sessions
 # http://www.sinatrarb.com/faq.html#sessions
@@ -47,6 +48,11 @@ get '/gossyps/new' do
   redirect '/' unless session[:user_id]
   @gossyp = Gossyp.new
   erb :new_gossyp
+end
+
+get '/gossyps/:id' do
+  @gossyp = Gossyp.find(params[:id])
+  erb :show_gossyp
 end
 
 post '/gossyps' do
