@@ -14,6 +14,7 @@ describe "Gossyper may creete discussion", type: :feature do
         expect {
           click_on "Spread the Gossyp!"
         }.to change { Gossyp.count }.by(1)
+
         expect(page).to have_content("You've started a Gossyp about #{title}")
         expect(gossyper.gossyps).to include Gossyp.last
       end
