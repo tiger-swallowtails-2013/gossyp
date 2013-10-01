@@ -29,7 +29,11 @@ class User < ActiveRecord::Base
 end
 
 get '/' do
-  @gossyps = Gossyp.all
+  if logged_in?
+    @gossyps = Gossyp.all
+  else
+    @gossyps = []
+  end
   erb :home
 end
 
@@ -45,7 +49,7 @@ get '/auth/twitter/callback' do
 end
 
 get '/gossyps/new' do
-  redirect '/' unless session[:user_id]
+  redirect '/' unless logged_in?
   @gossyp = Gossyp.new
   erb :new_gossyp
 end
@@ -78,5 +82,9 @@ helpers do
 
   def current_user
     @current_user ||= User.find(session[:user_id])
+  end
+
+  def logged_in?
+    !session[:user_id].nil?
   end
 end

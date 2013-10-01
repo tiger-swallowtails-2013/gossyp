@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe "Gossyper may view gossyp", type: :feature do
+  let!(:gossyps) {
+    3.times.map do
+      create_random_gossyp
+    end
+  }
+  # I'm using let! because I want to ensure this code gets ran immediately
   context "when logged in" do
-    let!(:gossyps) {
-      3.times.map do
-        create_random_gossyp
-      end
-    }
-    # I'm using let! because I want to ensure this code gets ran immediately
     before do
       login_as(create_gossyper)
       visit '/'
@@ -25,7 +25,13 @@ describe "Gossyper may view gossyp", type: :feature do
   end
 
   context "when not logged in" do
-    it "shows no gossyp on the home page"
+    it "shows no gossyp on the home page" do
+      visit '/'
+
+      gossyps.each do |gossyp|
+        expect(page).not_to have_content(gossyp.title)
+      end
+    end
     it "prevents guests from even visiting a gossyp show page"
   end
 end
