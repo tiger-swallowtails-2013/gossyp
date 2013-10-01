@@ -20,6 +20,10 @@ group :development, :test do
   gem 'rspec'
   gem 'capybara'
 
+
+  # This will make testing models slightly easier
+  gem 'shoulda-matchers'
+
   # This allows us to set environment variables like oauth secrets
   # without checking them into our public repository
   gem 'dotenv'
