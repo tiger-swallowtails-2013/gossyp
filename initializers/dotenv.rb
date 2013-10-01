@@ -13,6 +13,6 @@ unless ["production", "staging"].include? ENV['RACK_ENV']
   # This makes it easy to keep our secret configuration variables
   # outside of our public repo. HOORAY!
   require 'dotenv'
-  Dotenv.load('.env.development')
+  Dotenv.load(".env.#{ENV['RACK_ENV']}")
   # https://github.com/bkeepers/dotenv#sinatra-or-plain-ol-ruby
 end
