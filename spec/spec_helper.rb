@@ -4,7 +4,8 @@ $LOAD_PATH.unshift(File.expand_path('.'))
 # $LOAD_PATH - http://www.ruby-doc.org/core-2.0/Kernel.html#method-i-require
 # Array#unshift http://www.ruby-doc.org/core-2.0.0/Array.html#method-i-unshift
 
-# We require our app so that we have access to Sinatra::Application for capybara
+# Default RACK_ENV to test when we're running specs
+ENV['RACK_ENV'] ||= 'test'
 require 'gossyp'
 
 require 'capybara/rspec'
