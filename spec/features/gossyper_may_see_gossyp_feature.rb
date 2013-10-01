@@ -7,6 +7,7 @@ describe "Gossyper may view gossyp", type: :feature do
     end
   }
   # I'm using let! because I want to ensure this code gets ran immediately
+
   context "when logged in" do
     before do
       login_as(create_gossyper)
@@ -34,7 +35,9 @@ describe "Gossyper may view gossyp", type: :feature do
     end
     it "prevents guests from even visiting a gossyp show page" do
       gossyp = gossyps.pop
+
       visit "/gossyps/#{gossyp.id}"
+
       expect(page.status_code).to eq 403
       expect(page).not_to have_content(gossyp.title)
       expect(page).not_to have_content(gossyp.body)
