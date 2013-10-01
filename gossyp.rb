@@ -48,17 +48,19 @@ get '/auth/twitter/callback' do
   # http://en.wikipedia.org/wiki/HTTP_302
 end
 
+before '/gossyps/*' do
+  unless logged_in?
+    # We don't want to evaluate any routes if the user isn't logged in
+    halt 403, erb(:forbidden)
+    # http://www.sinatrarb.com/intro.html#Halting
+  end
+end
 get '/gossyps/new' do
-  redirect '/' unless logged_in?
   @gossyp = Gossyp.new
   erb :new_gossyp
 end
 
 get '/gossyps/:id' do
-  unless logged_in?
-    status 403
-    return erb :forbidden
-  end
   @gossyp = Gossyp.find(params[:id])
   erb :show_gossyp
 end

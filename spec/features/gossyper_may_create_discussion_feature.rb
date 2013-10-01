@@ -38,7 +38,7 @@ describe "Gossyper may creete discussion", type: :feature do
   context "when not logged in" do
     it "does not allow a gossyper to create a discussion" do
       visit '/gossyps/new'
-      expect(current_url).to eql 'http://www.example.com/'
+      expect(page.status_code).to eql 403
     end
   end
 end
