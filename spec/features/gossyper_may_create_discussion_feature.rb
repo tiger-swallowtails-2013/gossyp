@@ -36,7 +36,18 @@ describe "Gossyper may creete discussion", type: :feature do
     end
 
     context "when the user does not provide all required fields" do
-      it "Informs the gossyper which fields they failed to supply"
+      it "Informs the gossyper which fields they failed to supply" do
+        login_as gossyper
+        click_on 'New Gossyp!'
+
+        expect {
+          click_on "Spread the Gossyp!"
+        }.not_to change { Gossyp.count }
+
+        expect(page).to have_content("Title can't be blank")
+        expect(page).to have_content("Body can't be blank")
+        expect(current_url).to eql "http://www.example.com/gossyps"
+      end
     end
   end
 

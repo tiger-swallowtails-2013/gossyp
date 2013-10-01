@@ -11,6 +11,8 @@ require 'initializers/rack_flash'
 
 
 class Gossyp < ActiveRecord::Base
+  validates :title, :presence => true
+  validates :body, :presence => true
 end
 
 class User < ActiveRecord::Base
@@ -39,13 +41,18 @@ end
 
 get '/gossyps/new' do
   redirect '/' unless session[:user_id]
+  @gossyp = Gossyp.new
   erb :new_gossyp
 end
 
 post '/gossyps' do
-  gossyp = current_user.gossyps.create(params["gossyp"])
-  flash[:notice] = "You've started a Gossyp about #{gossyp.title}"
-  redirect '/'
+  @gossyp = current_user.gossyps.create(params["gossyp"])
+  if @gossyp.valid?
+    flash[:notice] = "You've started a Gossyp about #{@gossyp.title}"
+    redirect '/'
+  else
+    erb :new_gossyp
+  end
 end
 
 
