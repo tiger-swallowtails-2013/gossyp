@@ -1,6 +1,3 @@
-$LOAD_PATH.unshift('.')
-require 'gossyp'
-require 'sinatra/activerecord/rake'
 
 unless ['production', 'staging'].include? ENV['RACK_ENV']
   require 'rspec/core/rake_task'
@@ -19,3 +16,17 @@ unless ['production', 'staging'].include? ENV['RACK_ENV']
   end
   task :default => "spec:all"
 end
+
+task :environment do
+  $LOAD_PATH.unshift('.')
+  require 'gossyp'
+end
+
+require 'sinatra/activerecord/rake'
+
+# Ensure that we load the environment before doing database stuff
+["db:migrate", "db:rollback", "db:schema:dump", "db:schema:load"].each do |task|
+  Rake::Task[task].enhance [:environment]
+end
+
+# See: http://www.dan-manges.com/blog/modifying-rake-tasks
