@@ -15,6 +15,8 @@ require 'initializers/rack_flash'
 
 
 class Gossyp < ActiveRecord::Base
+  has_many :responses
+
   validates :title, :presence => true
   validates :body, :presence => true
 end
@@ -26,6 +28,11 @@ class User < ActiveRecord::Base
     user.update_attributes(full_name: auth_hash[:info][:name])
     user
   end
+end
+
+class Response < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :gossyp
 end
 
 get '/' do
@@ -62,6 +69,12 @@ end
 
 get '/gossyps/:id' do
   @gossyp = Gossyp.find(params[:id])
+  erb :show_gossyp
+end
+
+post '/gossyps/:id/responses' do
+  @gossyp = Gossyp.find(params[:id])
+  @gossyp.responses.create(params[:response])
   erb :show_gossyp
 end
 

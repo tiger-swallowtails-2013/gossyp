@@ -9,6 +9,8 @@ ENV['RACK_ENV'] ||= 'test'
 require 'gossyp'
 
 require 'capybara/rspec'
+require 'shoulda-matchers'
+
 require 'helpers/test_fixture_helper'
 require 'helpers/feature_login_helper'
 

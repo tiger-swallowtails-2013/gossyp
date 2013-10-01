@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Gossyp do
+  it { should have_many :responses }
+
   let(:gossyp) { Gossyp.new }
   describe "validations" do
     before { gossyp.valid? }
