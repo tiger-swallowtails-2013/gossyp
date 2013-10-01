@@ -27,6 +27,7 @@ ActiveRecord::Base.logger = Logger.new('/dev/null')
 RSpec.configure do |config|
   config.before do
     User.destroy_all
+    Gossyp.destroy_all
   end
 
   # This makes sure that we include the TestFixturesHelper in all of our tests
