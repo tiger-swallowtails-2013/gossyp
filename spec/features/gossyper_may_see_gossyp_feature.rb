@@ -32,6 +32,12 @@ describe "Gossyper may view gossyp", type: :feature do
         expect(page).not_to have_content(gossyp.title)
       end
     end
-    it "prevents guests from even visiting a gossyp show page"
+    it "prevents guests from even visiting a gossyp show page" do
+      gossyp = gossyps.pop
+      visit "/gossyps/#{gossyp.id}"
+      expect(page.status_code).to eq 403
+      expect(page).not_to have_content(gossyp.title)
+      expect(page).not_to have_content(gossyp.body)
+    end
   end
 end

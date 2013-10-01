@@ -55,6 +55,10 @@ get '/gossyps/new' do
 end
 
 get '/gossyps/:id' do
+  unless logged_in?
+    status 403
+    return erb :forbidden
+  end
   @gossyp = Gossyp.find(params[:id])
   erb :show_gossyp
 end
