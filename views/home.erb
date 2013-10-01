@@ -6,3 +6,6 @@
 </ul>
 </nav>
 
+<% @gossyps.each do |gossyp| %>
+  <h3><a href="/gossyps/<%=gossyp.id%>"><%=gossyp.title%></a></h3>
+<% end %>

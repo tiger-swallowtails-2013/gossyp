@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.expand_path('.'))
 # Default the RACK_ENV to development unless it's explicitely specified
 ENV['RACK_ENV'] ||= 'development'
 require 'sinatra'
+
 # Omniauth requires cookies so it can store data across page requests
 enable :sessions
 # http://www.sinatrarb.com/faq.html#sessions
@@ -28,6 +29,11 @@ class User < ActiveRecord::Base
 end
 
 get '/' do
+  if logged_in?
+    @gossyps = Gossyp.all
+  else
+    @gossyps = []
+  end
   erb :home
 end
 
@@ -42,10 +48,21 @@ get '/auth/twitter/callback' do
   # http://en.wikipedia.org/wiki/HTTP_302
 end
 
+before '/gossyps/*' do
+  unless logged_in?
+    # We don't want to evaluate any routes if the user isn't logged in
+    halt 403, erb(:forbidden)
+    # http://www.sinatrarb.com/intro.html#Halting
+  end
+end
 get '/gossyps/new' do
-  redirect '/' unless session[:user_id]
   @gossyp = Gossyp.new
   erb :new_gossyp
+end
+
+get '/gossyps/:id' do
+  @gossyp = Gossyp.find(params[:id])
+  erb :show_gossyp
 end
 
 post '/gossyps' do
@@ -71,5 +88,9 @@ helpers do
 
   def current_user
     @current_user ||= User.find(session[:user_id])
+  end
+
+  def logged_in?
+    !session[:user_id].nil?
   end
 end
