@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 end
 
 get '/' do
+  @gossyps = Gossyp.all
   erb :home
 end
 
