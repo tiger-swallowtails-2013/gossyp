@@ -1,6 +1,6 @@
-class CreateResponsesTable < ActiveRecord::Migration
+class CreateReactionsTable < ActiveRecord::Migration
   def up
-    create_table :responses do |t|
+    create_table :reactions do |t|
       t.belongs_to :gossyp
       t.belongs_to :user
       t.text :body
@@ -9,6 +9,6 @@ class CreateResponsesTable < ActiveRecord::Migration
   end
 
   def down
-    drop_table :responses
+    drop_table :reactions
   end
 end

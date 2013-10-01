@@ -1,5 +1,5 @@
 class Gossyp < ActiveRecord::Base
-  has_many :responses
+  has_many :reactions
 
   validates :title, :presence => true
   validates :body, :presence => true
@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   end
 end
 
-class Response < ActiveRecord::Base
+class Reaction < ActiveRecord::Base
   belongs_to :user
   belongs_to :gossyp
+
+  validates :body, :presence => true
 end

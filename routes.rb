@@ -32,12 +32,13 @@ end
 
 get '/gossyps/:id' do
   @gossyp = Gossyp.find(params[:id])
+  @reaction = Reaction.new
   erb :show_gossyp
 end
 
-post '/gossyps/:id/responses' do
+post '/gossyps/:id/reactions' do
   @gossyp = Gossyp.find(params[:id])
-  @gossyp.responses.create(params[:response])
+  @reaction = @gossyp.reactions.create(params[:reaction])
   erb :show_gossyp
 end
 

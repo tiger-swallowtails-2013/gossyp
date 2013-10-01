@@ -1,11 +1,11 @@
 <h2><%= @gossyp.title %></h2>
 <p><%= @gossyp.body %></p>
 
-<% @gossyp.responses.each do |response| %>
-  <p><%= response.body %></p>
+<% @gossyp.reactions.each do |reaction| %>
+  <p><%= reaction.body %></p>
 <% end %>
 
-<form method="POST" action="/gossyps/<%=@gossyp.id%>/responses">
-  <textarea name="response[body]"></textarea>
-  <input type="submit" value="Add Response">
+<form method="POST" action="/gossyps/<%=@gossyp.id%>/reactions">
+  <textarea name="reaction[body]"></textarea>
+  <input type="submit" value="Add Reaction">
 </form>
