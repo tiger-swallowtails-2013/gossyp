@@ -9,6 +9,8 @@ ENV['RACK_ENV'] ||= 'test'
 require 'gossyp'
 
 require 'capybara/rspec'
+require 'helpers/test_fixture_helper'
+require 'helpers/feature_login_helper'
 
 # Tell capybara that we're testing your sinatra app
 # https://github.com/jnicklas/capybara#setup
@@ -26,4 +28,15 @@ RSpec.configure do |config|
   config.before do
     User.destroy_all
   end
+
+  # This makes sure that we include the TestFixturesHelper in all of our tests
+  # Making the helper functions available to everyone!
+  config.include TestFixturesHelper
+
+  # This makes sure we include the FeatureLoginHelper only in tests that we tag
+  # with feature.
+  config.include FeatureLoginHelper, :type => :feature
+
+  # See: https://www.relishapp.com/rspec/rspec-core/v/2-14/docs/helper-methods/define-helper-methods-in-a-module
+  # For the official docs on how to include helpers
 end
