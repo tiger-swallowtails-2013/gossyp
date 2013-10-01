@@ -10,7 +10,11 @@ require 'initializers/omniauth'
 require 'initializers/rack_flash'
 
 
+class Gossyp < ActiveRecord::Base
+end
+
 class User < ActiveRecord::Base
+  has_many :gossyps
   def self.from_auth_hash(auth_hash)
     user = User.find_or_create_by(twitter_uid: auth_hash[:uid])
     user.update_attributes(full_name: auth_hash[:info][:name])
@@ -24,8 +28,8 @@ end
 
 get '/auth/twitter/callback' do
   flash[:notice] = "Welcome #{auth_hash[:info][:name]}"
-  User.from_auth_hash(auth_hash)
-
+  user = User.from_auth_hash(auth_hash)
+  session[:user_id] = user.id
   # This is shorthand for sending an HTTP Header of 'Location: http://yourhost.com/' and a response
   # code of 302
 
@@ -34,6 +38,13 @@ get '/auth/twitter/callback' do
 end
 
 get '/gossyps/new' do
+  redirect '/' unless session[:user_id]
+  erb :new_gossyp
+end
+
+post '/gossyps' do
+  gossyp = current_user.gossyps.create(params["gossyp"])
+  flash[:notice] = "You've started a Gossyp about #{gossyp.title}"
   redirect '/'
 end
 
@@ -46,5 +57,9 @@ helpers do
   # So I made an auth_hash helper
   def auth_hash
     env['omniauth.auth']
+  end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id])
   end
 end
