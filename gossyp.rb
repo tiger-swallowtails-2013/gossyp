@@ -1,4 +1,7 @@
 $LOAD_PATH.unshift(File.expand_path('.'))
+
+# Default the RACK_ENV to development unless it's explicitely specified
+ENV['RACK_ENV'] ||= 'development'
 require 'sinatra'
 # Omniauth requires cookies so it can store data across page requests
 enable :sessions
