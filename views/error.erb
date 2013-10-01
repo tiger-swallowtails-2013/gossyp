@@ -1,0 +1,5 @@
+<% unless model.errors.empty? %>
+  <% model.errors.full_messages.each do |message| %>
+    <p class="error"><%=message%></p>
+  <% end %>
+<% end %>

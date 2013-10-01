@@ -1,8 +1,4 @@
-<% unless @gossyp.errors.empty? %>
-  <% @gossyp.errors.full_messages.each do |message| %>
-    <p class="error"><%=message%></p>
-  <% end %>
-<% end %>
+<%= erb :error, locals: { model: @gossyp } %>
 <form method="POST" action="/gossyps">
   <fieldset>
     <label>Title<input type="textbox" name="gossyp[title]" value="<%=@gossyp.title%>" /></label>

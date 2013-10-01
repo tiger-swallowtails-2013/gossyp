@@ -20,7 +20,7 @@ describe "Gossyper may react to gossyp", type: :feature do
   context "when the reaction is not valid" do
     it "does not save the reaction" do
       click_on "Add Reaction"
-      expect(page).to have_content "Body cannot be blank"
+      expect(page).to have_content "Body can't be blank"
       expect(gossyp.reactions).to be_empty
     end
   end
