@@ -2,9 +2,9 @@
 
 ### Done
 * Guest may login with twitter
+* Gossyper may create a public gossyp with title and body
 
 ### Next
-* Gossyper may create a public discussion with title and body
 * Gossyper may see all discussion titles, with most recent at the
   top
 * Gossyper may see a discussion
