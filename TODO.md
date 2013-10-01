@@ -1,6 +1,6 @@
 ### Next
-* Gossyper may respond to a discussion
-* Gossyper may see responses to a discussion
+* Gossyper may react to a discussion
+* Gossyper may see reactions  to a discussion
 * Gossyper may log out
 
 ### Done - Most recent at top

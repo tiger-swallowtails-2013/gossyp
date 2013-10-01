@@ -1,2 +1,12 @@
 <h2><%= @gossyp.title %></h2>
 <p><%= @gossyp.body %></p>
+
+<% @gossyp.reactions.each do |reaction| %>
+  <p><%= reaction.body %></p>
+<% end %>
+
+<%= erb :error, locals: { model: @reaction } %>
+<form method="POST" action="/gossyps/<%=@gossyp.id%>/reactions">
+  <textarea name="reaction[body]"></textarea>
+  <input type="submit" value="Add Reaction">
+</form>
