@@ -13,6 +13,7 @@ require 'shoulda-matchers'
 
 require 'helpers/test_fixture_helper'
 require 'helpers/feature_login_helper'
+require 'helpers/route_helper'
 
 # Tell capybara that we're testing your sinatra app
 # https://github.com/jnicklas/capybara#setup

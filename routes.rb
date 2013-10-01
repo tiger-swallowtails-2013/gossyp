@@ -18,7 +18,7 @@ get '/auth/twitter/callback' do
   # http://en.wikipedia.org/wiki/HTTP_302
 end
 
-before '/gossyps/*' do
+before '/gossyps*' do
   unless logged_in?
     # We don't want to evaluate any routes if the user isn't logged in
     halt 403, erb(:forbidden)

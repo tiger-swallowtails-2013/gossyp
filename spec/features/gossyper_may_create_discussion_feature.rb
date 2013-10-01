@@ -16,7 +16,6 @@ describe "Gossyper may creete discussion", type: :feature do
         }.to change { Gossyp.count }.by(1)
 
         expect(page).to have_content("You've started a Gossyp about #{title}")
-        expect(gossyper.gossyps).to include Gossyp.last
       end
     end
 
@@ -33,13 +32,6 @@ describe "Gossyper may creete discussion", type: :feature do
         expect(page).to have_content("Body can't be blank")
         expect(current_url).to eql "http://www.example.com/gossyps"
       end
-    end
-  end
-
-  context "when not logged in" do
-    it "does not allow a gossyper to create a discussion" do
-      visit '/gossyps/new'
-      expect(page.status_code).to eql 403
     end
   end
 end
