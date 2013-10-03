@@ -63,4 +63,12 @@ describe "Guest logs in with twitter", type: :feature do
       expect(User.find_by(twitter_uid: twitter_uid)).not_to be_nil
     end
   end
+
+  it "lets them log out" do
+    login_with_twitter
+    click_on "Log out"
+    expect(page).to have_content("You have been logged out")
+    expect(page).to have_content("Login with Twitter!")
+    expect(page).not_to have_content("Log out")
+  end
 end
