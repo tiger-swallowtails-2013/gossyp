@@ -1,9 +1,13 @@
 <p><%= flash[:notice] %></p>
 <nav>
-<ul>
-  <li><a href='/auth/twitter'>Login with Twitter!</a></li>
-  <li><a href='/gossyps/new'>New Gossyp!</a></li>
-</ul>
+  <ul>
+    <% if logged_in? %>
+      <li><a href="/logout">Log out</a></li>
+      <li><a href="/gossyps/new">New Gossyp!</a></li>
+    <% else %>
+      <li><a href="/auth/twitter">Login with Twitter!</a></li>
+    <% end %>
+  </ul>
 </nav>
 
 <% @gossyps.each do |gossyp| %>
