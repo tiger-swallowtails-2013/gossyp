@@ -55,6 +55,7 @@ end
 post '/gossyps/:id/stars' do
   @gossyp.toggle_star!(current_user)
   flash[:notice] = "You've #{starred_message(@gossyp)} #{@gossyp.title}!"
+  redirect '/'
 end
 
 post '/gossyps' do
