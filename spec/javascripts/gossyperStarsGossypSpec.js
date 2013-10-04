@@ -14,6 +14,8 @@ describe('Gossyper Stars Gossyp', function () {
     body.affix('#gossyp_2.gossyp form.toggle_star');
 
 
+
+    var counter = 1;
     // Because I don't want to actually hit the server from my tests, I'm
     // spying on GossypAPI's starGossyp function.
     spyOn(GossypAPI, 'starGossyp').andCallFake(function(gossypId, callback) {
@@ -21,8 +23,8 @@ describe('Gossyper Stars Gossyp', function () {
       // a bit more work.
 
 
-      var fakeServerResponse = "<div id='gossyp_" + gossypId + "' class='gossyp'>attempt to " +
-                 "star gossyp " + gossypId + "</div>"
+      var fakeServerResponse = "<div id='gossyp_" + gossypId + "' class='gossyp'>" + counter++ +" attempt to " +
+                 "star gossyp " + gossypId + "<form class='toggle_star'></form></div>"
       // Here I'm setting up a fake version of a string I may get back from the server.
 
       callback(fakeServerResponse);
@@ -47,6 +49,11 @@ describe('Gossyper Stars Gossyp', function () {
 
     it("does not replace other gossyp with the servers response", function() {
       expect($('#gossyp_2').text()).not.toContain('attempt at starring gossyp');
+    });
+
+    it("allows me to unstar the gossyp even after starring it once", function() {
+      $('#gossyp_1 .toggle_star').submit();
+      expect($('#gossyp_1').text()).toContain('2 attempt to star gossyp 1');
     });
   });
 });

@@ -1,7 +1,19 @@
 var GossypApp = function() {
-  $('.toggle_star').on('submit', function(e) {
-    // Stop the form from actually submitting
+  $('#gossyps').on('submit', '.toggle_star', function(e) {
+    // This is what's known as event delgation. If we simply bound the event
+    // directly to toggle_star, if we replaced that element it would no longer
+    // have the event bound to it!
+
+    // Event delegation is when you bind the event to a containing element,
+    // but only trigger the callback if the event was triggered on the
+    // element which matches the 2nd arguments css selector
+
+    // I read these like:
+
+    // Within #gossyps, on submit of the .toggle_star element, do this callback
+
     e.preventDefault()
+    // Stop the form from actually submitting
 
     var gossypId = getGossypIdFromDom($(this).closest('.gossyp'));
     GossypAPI.starGossyp(gossypId, function(response) {

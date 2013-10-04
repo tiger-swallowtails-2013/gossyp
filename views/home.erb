@@ -10,9 +10,11 @@
   </ul>
 </nav>
 
-<% @gossyps.each do |gossyp| %>
-  <%= erb :homepage_gossyp, locals: { gossyp: gossyp } %>
-<% end %>
+<div id="gossyps">
+  <% @gossyps.each do |gossyp| %>
+    <%= erb :homepage_gossyp, locals: { gossyp: gossyp } %>
+  <% end %>
+</div>
 
 <script src="/javascripts/vendor/jquery-2.0.3.js"></script>
 <script src="/javascripts/gossypApp.js"></script>
