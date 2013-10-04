@@ -54,8 +54,13 @@ end
 
 post '/gossyps/:id/stars' do
   @gossyp.toggle_star!(current_user)
-  flash[:notice] = "You've #{starred_message(@gossyp)} #{@gossyp.title}!"
-  redirect '/'
+  # request.xhr? tells us whether or not the request came in via ajax
+  if request.xhr?
+    erb :homepage_gossyp, layout: false, locals: { gossyp: @gossyp }
+  else
+    flash[:notice] = "You've #{starred_message(@gossyp)} #{@gossyp.title}!"
+    redirect '/'
+  end
 end
 
 post '/gossyps' do
@@ -67,4 +72,3 @@ post '/gossyps' do
     erb :new_gossyp
   end
 end
-
