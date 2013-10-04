@@ -11,5 +11,7 @@
 </nav>
 
 <% @gossyps.each do |gossyp| %>
-  <h3><a href="/gossyps/<%=gossyp.id%>"><%=gossyp.title%></a></h3>
+  <h3>
+    <form method="post" action="/gossyps/<%=gossyp.id%>/stars"><input type="submit" id="star_gossyp_<%=gossyp.id%>" /></form>
+    <a href="/gossyps/<%=gossyp.id%>"><%=gossyp.title%></a></h3>
 <% end %>

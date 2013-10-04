@@ -32,6 +32,7 @@ before '/gossyps*' do
     # http://www.sinatrarb.com/intro.html#Halting
   end
 end
+
 get '/gossyps/new' do
   @gossyp = Gossyp.new
   erb :new_gossyp
@@ -47,6 +48,12 @@ post '/gossyps/:id/reactions' do
   @gossyp = Gossyp.find(params[:id])
   @reaction = @gossyp.reactions.create(params[:reaction])
   erb :show_gossyp
+end
+
+post '/gossyps/:id/stars' do
+  gossyp = Gossyp.find(params[:id])
+  gossyp.toggle_star!(current_user)
+  flash[:notice] = "You've starred #{gossyp.title}!"
 end
 
 post '/gossyps' do
