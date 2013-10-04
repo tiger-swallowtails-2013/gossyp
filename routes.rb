@@ -38,22 +38,23 @@ get '/gossyps/new' do
   erb :new_gossyp
 end
 
+before %r{\/gossyps\/(\d+)} do
+  @gossyp = Gossyp.find(params[:captures].first)
+end
+
 get '/gossyps/:id' do
-  @gossyp = Gossyp.find(params[:id])
   @reaction = Reaction.new
   erb :show_gossyp
 end
 
 post '/gossyps/:id/reactions' do
-  @gossyp = Gossyp.find(params[:id])
   @reaction = @gossyp.reactions.create(params[:reaction])
   erb :show_gossyp
 end
 
 post '/gossyps/:id/stars' do
-  gossyp = Gossyp.find(params[:id])
-  gossyp.toggle_star!(current_user)
-  flash[:notice] = "You've #{starred_message(gossyp)} for #{gossyp.title}!"
+  @gossyp.toggle_star!(current_user)
+  flash[:notice] = "You've #{starred_message(@gossyp)} #{@gossyp.title}!"
 end
 
 post '/gossyps' do
