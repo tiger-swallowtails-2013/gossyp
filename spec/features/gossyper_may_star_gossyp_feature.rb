@@ -9,6 +9,16 @@ describe 'Gossyper may star gossyp', type: :feature do
     end
   end
   context "when the gossyp is starred" do
-    it "unstars the gossyp"
+    it "unstars the gossyp" do
+      gossyper = create_gossyper
+      gossyp = create_random_gossyp
+      gossyp.toggle_star!(gossyper)
+
+      login_as gossyper
+
+      click_on "star_gossyp_#{gossyp.id}"
+      expect(page).to have_content "You've unstarred #{gossyp.title}!"
+
+    end
   end
 end

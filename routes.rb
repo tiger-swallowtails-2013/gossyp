@@ -53,7 +53,7 @@ end
 post '/gossyps/:id/stars' do
   gossyp = Gossyp.find(params[:id])
   gossyp.toggle_star!(current_user)
-  flash[:notice] = "You've starred #{gossyp.title}!"
+  flash[:notice] = "You've #{starred_message(gossyp)} for #{gossyp.title}!"
 end
 
 post '/gossyps' do

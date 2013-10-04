@@ -13,11 +13,19 @@ describe Gossyp do
         gossyp = create_random_gossyp
         gossyp.toggle_star! gossyper
 
-        expect(gossyper).to have_starred gossyp
+        expect(gossyp).to be_starred_by gossyper
       end
     end
     context "when the user has already starred the gossyp" do
-      it "removes the star"
+      it "removes the star" do
+
+        gossyper = create_gossyper
+        gossyp = create_random_gossyp
+        gossyp.toggle_star! gossyper
+        gossyp.toggle_star! gossyper
+
+        expect(gossyp).not_to be_starred_by gossyper
+      end
     end
 
   end

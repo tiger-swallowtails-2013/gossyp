@@ -19,4 +19,8 @@ helpers do
   def logout!
     session[:user_id] = nil
   end
+
+  def starred_message(gossyp)
+    gossyp.starred_by?(current_user) ? "starred" : "unstarred"
+  end
 end

@@ -6,7 +6,15 @@ class Gossyp < ActiveRecord::Base
   validates :body, :presence => true
 
   def toggle_star! gossyper
-    stars.create(user_id: gossyper.id)
+    if starred_by? gossyper
+      stars.find_by(user_id: gossyper.id).destroy
+    else
+      stars.create(user_id: gossyper.id)
+    end
+  end
+
+  def starred_by? gossyper
+    stars.where(user_id: gossyper.id).exists?
   end
 end
 
@@ -18,10 +26,6 @@ class User < ActiveRecord::Base
     user = User.find_or_create_by(twitter_uid: auth_hash[:uid])
     user.update_attributes(full_name: auth_hash[:info][:name])
     user
-  end
-
-  def has_starred? gossyp
-    stars.where(gossyp_id: gossyp.id).exists?
   end
 end
 
