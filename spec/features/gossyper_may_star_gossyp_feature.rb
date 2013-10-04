@@ -1,4 +1,4 @@
-describe 'Gossyper may star gossyp', type: :feature do
+describe 'Gossyper may star gossyp', type: :feature, js: true do
   context "when the gossyp is not yet starred" do
     it "stars the gossyp!" do
       gossyper = create_gossyper
@@ -6,8 +6,6 @@ describe 'Gossyper may star gossyp', type: :feature do
       login_as gossyper
 
       click_on "star_gossyp_#{gossyp.id}"
-
-      expect(page).to have_content "You've starred #{gossyp.title}!"
 
       within "#gossyp_#{gossyp.id}" do
         expect(page).to have_button "Unstar"
@@ -24,7 +22,6 @@ describe 'Gossyper may star gossyp', type: :feature do
       login_as gossyper
 
       click_on "star_gossyp_#{gossyp.id}"
-      expect(page).to have_content "You've unstarred #{gossyp.title}!"
 
       within "#gossyp_#{gossyp.id}" do
         expect(page).to have_button "Star"
