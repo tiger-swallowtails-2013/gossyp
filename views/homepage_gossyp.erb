@@ -1,0 +1,6 @@
+<div id="gossyp_<%=gossyp.id%>" class="gossyp">
+  <h3><a href="/gossyps/<%=gossyp.id%>"><%=gossyp.title%></a></h3>
+  <form method="post" action="/gossyps/<%=gossyp.id%>/stars" class="toggle_star"><input
+    type="submit" id="star_gossyp_<%=gossyp.id%>" value="<%= star_button_text(gossyp) %>" />
+  </form>
+</div>

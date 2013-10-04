@@ -27,4 +27,6 @@ group :development, :test do
   # This allows us to set environment variables like oauth secrets
   # without checking them into our public repository
   gem 'dotenv'
+
+  gem 'jasmine'
 end
