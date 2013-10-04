@@ -30,3 +30,12 @@ require 'sinatra/activerecord/rake'
 end
 
 # See: http://www.dan-manges.com/blog/modifying-rake-tasks
+
+begin
+  require 'jasmine'
+  load 'jasmine/tasks/jasmine.rake'
+rescue LoadError
+  task :jasmine do
+    abort "Jasmine is not available. In order to run jasmine, you must: (sudo) gem install jasmine"
+  end
+end
