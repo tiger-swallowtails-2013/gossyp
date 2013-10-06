@@ -8,6 +8,9 @@ gem 'pg'
 gem 'omniauth'
 gem 'omniauth-twitter'
 
+# Apparently travis-ci needs this explicitely in the Gemfile
+gem 'rake'
+
 # I chose rack-flash over sinatra-flash because sinatra-flash hadn't had a
 # commit in years.
 gem 'rack-flash3'
