@@ -14,7 +14,7 @@ unless ['production', 'staging'].include? ENV['RACK_ENV']
       t.pattern = "spec/feature/*_feature.rb"
     end
   end
-  task :default => "spec:all"
+  task :default => ["spec:all", "jasmine:ci"]
 end
 
 task :environment do
